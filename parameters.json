@@ -1,0 +1,14 @@
+{
+  "cntrName" : "TMyNewCntr",
+  "header_includes" :
+            [
+              "<string>", "<cstdint>"
+            ],
+  "fields" : 
+
+   [
+     {"id" : "name", "type" : "string", "default" : ""},
+     {"id" : "age", "type" : "int", "default" : "12"}
+   ]
+
+}
