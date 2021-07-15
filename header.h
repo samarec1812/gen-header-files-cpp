@@ -10,16 +10,19 @@
 
 class TMyNewCntr
 {
-   
-    string name;
-    int age = 12;
-    
-    
-
-   
-   string Print(int age, string name = "12");
+    public: 
+        string name;
+        int age = 12;
         
-   std::string printState() const;
+        
+       
+       string Print(int age, string name = "12");
+            
+       std::string printState() const;
+    private: 
+         string name;
+         
+         
 };
 //---------------------------------------------------------------------------
 #endif

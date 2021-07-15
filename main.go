@@ -14,8 +14,19 @@ import (
 
 type Data struct {
 	CntrName string `json:"cntrName"`
-	Fields []FieldParameters `json:"fields"`
+	Public PublicData `json:"public"`
+	Private PrivateData `json:"private"`
+	// Fields []FieldParameters `json:"fields"`
 	HeaderIncludes []string `json:"header_includes"`
+	// Functions []Function `json:"functions"`
+}
+type PublicData struct {
+	Fields []FieldParameters `json:"fields"`
+	Functions []Function `json:"functions"`
+}
+
+type PrivateData struct {
+	Fields []FieldParameters `json:"fields"`
 	Functions []Function `json:"functions"`
 }
 
