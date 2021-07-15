@@ -2,13 +2,21 @@
   "cntrName" : "TMyNewCntr",
   "header_includes" :
             [
-              "<string>", "<cstdint>"
+
             ],
   "fields" : 
 
    [
      {"id" : "name", "type" : "string", "default" : ""},
      {"id" : "age", "type" : "int", "default" : "12"}
-   ]
+   ],
+  "functions" :
+          [
+            {"id" : "Print", "type" : "string", "parameters" : [
+              {"id" : "age", "type" : "int", "default" : ""},
+              {"id" : "name", "type" : "string", "default" : "\"12\""}
+            ], "ident_after_func" : [] },
+            {"id" : "printState", "type" : "std::string", "parameters" : [], "ident_after_func" : ["const"] }
+          ]
 
 }

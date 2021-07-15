@@ -16,6 +16,7 @@ type Data struct {
 	CntrName string `json:"cntrName"`
 	Fields []FieldParameters `json:"fields"`
 	HeaderIncludes []string `json:"header_includes"`
+	Functions []Function `json:"functions"`
 }
 
 type FieldParameters struct {
@@ -23,6 +24,15 @@ type FieldParameters struct {
 	Type string `json:"type"`
 	Default string `json:"default"`
 }
+
+type Function struct {
+	ID string `json:"id"`
+	Type string `json:"type"`
+	Parameters []FieldParameters `json:"parameters"`
+	IdentAfterFunc []string `json:"ident_after_func"`
+}
+
+
 
 func readingJSON(name string, value interface{}) error {
 	file, err := os.Open(name)
@@ -50,12 +60,18 @@ func GenerateTemplate(fileName string, data Data) error {
 	//if err != nil {
 	//	return err
 	//}
-	tmpl, err := template.ParseFiles("templates/Header2.tmpl")
+	tmpl, err := template.New("new_template").Funcs(template.FuncMap{
+		"add": func(a, b int) int { return a + b },
+	}).ParseFiles("templates/Header2.tmpl")
+	//tmpl, err := template.ParseFiles("templates/Header2.tmpl")
 	if err != nil {
 		return err
 	}
+
 	var tmplBytes bytes.Buffer
-	err = tmpl.ExecuteTemplate(file, "Header2.tmpl", data)
+	err = tmpl.Funcs(template.FuncMap{
+		"add": func(a, b int) int { return a + b },
+	}).ExecuteTemplate(file, "Header2.tmpl", data)
 	if err != nil {
 		return err
 	}
@@ -66,6 +82,11 @@ func GenerateTemplate(fileName string, data Data) error {
 	fmt.Println(string(Formatted))
 
 	return err
+}
+
+func LastIndex(args ...interface{}) string {
+	if len(args) == 0 { return ""}
+	return fmt.Sprintf("%v", len(args) - 1)
 }
 
 func main() {

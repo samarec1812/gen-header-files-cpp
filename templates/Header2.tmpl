@@ -13,13 +13,16 @@
 class {{ .CntrName}}
 {
    {{ range .Fields -}}
-        {{if .Default -}}
-           {{ .Type}} {{ .ID }} = {{ .Default}};
-        {{else}}{{ .Type }} {{ .ID }};
-        {{end}}
-   {{ end }}
+    {{if .Default -}}{{ .Type}} {{ .ID }} = {{ .Default}};
+    {{else}}
+    {{ .Type }} {{ .ID }};{{end}}
+    {{end}}
 
-
+   {{ range .Functions -}}{{$size := len .Parameters}}
+   {{ .Type}} {{ .ID }}({{range $index, $value := .Parameters -}}
+        {{if eq $index (add $size -1)}}{{if .Default -}}{{ .Type}} {{ .ID }} = {{ .Default}});
+        {{else}}{{ .Type }} {{ .ID }}) {{end}}{{else}}{{if .Default -}} {{ .Type}} {{ .ID }} = {{ .Default}},
+        {{else}}{{ .Type }} {{ .ID }}, {{end}}{{end}}{{end}}{{if .IdentAfterFunc}}) {{range .IdentAfterFunc -}}{{.}}{{end}};{{end}}{{end}}
 };
 //---------------------------------------------------------------------------
 #endif
